@@ -15,16 +15,16 @@ pipeline {
           sleep 15
           for pvc in $pvcs; do
           cat <<EOF | kubectl apply -f - \
-          kind: PersistentVolumeClaim
-          apiVersion: v1
-          metadata:
-            name: $pvc
-          spec:
-            accessModes:
-            - ReadWriteOnce 
-          resources:
-            requests:
-              storage: 10Gi
+          kind: PersistentVolumeClaim \
+          apiVersion: v1 \
+          metadata: \
+            name: $pvc \
+          spec: \
+            accessModes: \
+            - ReadWriteOnce \ 
+          resources: \
+            requests: \
+              storage: 10Gi \
           EOF
           done
           sleep 10
