@@ -7,7 +7,7 @@ pipeline {
       steps {
         script {
           withKubeConfig([credentialsId: lod-dev-kubeconfig, namespace: ${env.EnvironmentNamespace}])
-          sh'
+          sh"""
           deploys=$(kubectl get deploy | egrep '*-api' | grep -v 'apispecification\|rules\|tableau')
           for deploy in $deploys; do kubectl scale deployment $deploy --replicas=0; done
           stss=$(kubectl get sts -o=name | egrep '*-db|dwh' | grep -v airflow)
@@ -34,7 +34,7 @@ pipeline {
           for sts in $stss; do kubectl scale $sts --replicas=1; done
           sleep 200
           for deploy in $deploys; do kubectl scale deployment $deploy --replicas=1; done
-          '
+          """
         }
       }
     }
