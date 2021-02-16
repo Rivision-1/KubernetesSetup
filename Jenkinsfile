@@ -8,7 +8,6 @@ pipeline {
         script {
           withKubeConfig([credentialsId: lod-dev-kubeconfig, namespace: ${env.EnvironmentNamespace}])
           sh:(
-          #!/bin/bash
           deploys=$(kubectl get deploy | egrep '*-api' | grep -v 'apispecification\|rules\|tableau')
           for deploy in $deploys; do kubectl scale deployment $deploy --replicas=0; done
           stss=$(kubectl get sts -o=name | egrep '*-db|dwh' | grep -v airflow)
