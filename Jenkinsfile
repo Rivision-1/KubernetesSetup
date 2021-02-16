@@ -5,8 +5,8 @@ pipeline {
       steps {
         script {
            withKubeConfig([credentialsId: KubeconfigId, namespace: EnvironmentNamespace]) {
-          sh '''deploys=$(kubectl get deploy | egrep \'*-api\' | grep -v \'apispecification\\|rules\\|tableau\')
-          for deploy in $deploys; do kubectl scale deploy $deploy --replicas=0; done
+          sh '''deploys=$(kubectl get deploy -o=name | egrep \'*-api\' | grep -v \'apispecification\\|rules\\|tableau\')
+          for deploy in $deploys; do kubectl scale $deploy --replicas=0; done
           stss=$(kubectl get sts -o=name | egrep \'*-db|dwh\' | grep -v airflow)
           for sts in $stss; do kubectl scale $sts --replicas=0; done
           pvcs=$(kubectl get pvc -o=name | egrep \'*-db|dwh\' | grep -v airflow)
