@@ -13,7 +13,7 @@ pipeline {
           sleep 30
           for pvc in $pvcs; do kubectl delete $pvc; done
           sleep 15
-          for pvc in $pvcs; do
+          for pvc in $pvcs; do \
           cat <<EOF | kubectl apply -f - \
           kind: PersistentVolumeClaim \
           apiVersion: v1 \
