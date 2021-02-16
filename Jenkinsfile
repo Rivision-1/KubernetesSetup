@@ -1,8 +1,8 @@
 pipeline {
    agent any
-   parameters {
-        choice(name: 'EnvironmentNamespace', choices: 'dev\nqa\nint\nuat')
-    }
+   //parameters {
+     //   choice(name: 'EnvironmentNamespace', choices: 'dev\nqa\nint\nuat')
+    //}
   stages { 
     stage('Cleanup') {
       steps {
