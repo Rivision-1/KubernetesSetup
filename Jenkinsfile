@@ -14,7 +14,7 @@ pipeline {
           for pvc in $pvcs; do kubectl delete $pvc; done
           sleep 15
           for pvc in $pvcs; do
-          cat<<EOF | kubectl apply -f -
+          cat <<EOF | kubectl apply -f - \
           kind: PersistentVolumeClaim
           apiVersion: v1
           metadata:
@@ -25,7 +25,7 @@ pipeline {
           resources:
             requests:
               storage: 10Gi
-          EOF;
+          EOF
           done
           sleep 10
           for sts in $stss; do kubectl scale $sts --replicas=1 done
