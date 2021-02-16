@@ -5,8 +5,8 @@ pipeline {
       steps {
         script {
            withKubeConfig([credentialsId: KubeconfigId, namespace: EnvironmentNamespace]) {
+          sh '''deploys=$(kubectl get deploy | egrep \'*-api\' | grep -v \'apispecification\\|rules\\|tableau\')
           
-          sh '''kubectl get po -n dev'''
         }
       }
     }
