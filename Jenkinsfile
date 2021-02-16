@@ -1,4 +1,3 @@
-def kube_key = "lod-dev-kubeconfig"
 pipeline {
    agent any
    parameters {
@@ -8,7 +7,7 @@ pipeline {
     stage('Cleanup') {
       steps {
         script {
-          withKubeConfig([credentialsId: ${env.kube_key}, namespace: ${env.EnvironmentNamespace}])
+          withKubeConfig([credentialsId: KubeconfigId, namespace: ${env.EnvironmentNamespace}])
           sh '''deploys=$(kubectl get deploy | egrep \'*-api\' | grep -v \'apispecification\\|rules\\|tableau\')
           for deploy in $deploys; do kubectl scale deployment $deploy --replicas=0; done
           stss=$(kubectl get sts -o=name | egrep \'*-db|dwh\' | grep -v airflow)
