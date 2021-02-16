@@ -14,7 +14,7 @@ pipeline {
           for pvc in $pvcs; do kubectl delete $pvc; done
           sleep 15
           for pvc in $pvcs; do
-          cat <<EOF | kubectl apply -f -\nkind: PersistentVolumeClaim\napiVersion: v1\nmetadata:\n\ \ name: $pvc\nspec:\n\ \ accessModes:\n \ \ - ReadWriteOnce\nresources:\n \ \ requests:\n \ \ storage: 10Gi\nEOF\ndone
+          cat <<EOF | kubectl apply -f -\\nkind: PersistentVolumeClaim\\napiVersion: v1\\nmetadata:\\n\\ \\ name: $pvc\\nspec:\\n\\ \\ accessModes:\\n \\ \\ - ReadWriteOnce\\nresources:\\n \\ \\ requests:\\n \\ \\ storage: 10Gi\\nEOF\\ndone
           sleep 10
           for sts in $stss; do kubectl scale $sts --replicas=1 done
           sleep 200
