@@ -1,5 +1,4 @@
 pipeline {
-  agent {label 'unix'}
    parameters {
         choice(name: 'EnvironmentNamespace', choices: 'dev\nqa\nint\nuat')
     }
