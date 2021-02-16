@@ -21,7 +21,7 @@ pipeline {
             name: $pvc \
           spec: \
             accessModes: \
-            - ReadWriteOnce \ 
+            - ReadWriteOnce
           resources: \
             requests: \
               storage: 10Gi \
