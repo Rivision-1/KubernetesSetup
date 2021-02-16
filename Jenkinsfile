@@ -1,13 +1,10 @@
 pipeline {
    agent any
-   //parameters {
-     //   choice(name: 'EnvironmentNamespace', choices: 'dev\nqa\nint\nuat')
-    //}
   stages { 
     stage('Cleanup') {
       steps {
         script {
-          withKubeConfig([credentialsId: KubeconfigId, namespace: ${env.EnvironmentNamespace}])
+          withKubeConfig([credentialsId: KubeconfigId, namespace: dev}])
           sh '''deploys=$(kubectl get deploy | egrep \'*-api\' | grep -v \'apispecification\\|rules\\|tableau\')
           for deploy in $deploys; do kubectl scale deployment $deploy --replicas=0; done
           stss=$(kubectl get sts -o=name | egrep \'*-db|dwh\' | grep -v airflow)
