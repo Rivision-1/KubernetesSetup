@@ -11,7 +11,7 @@ pipeline {
           for sts in $stss; do kubectl scale $sts --replicas=0; done
           pvcs=$(kubectl get pvc -o=name | egrep \'*-db|dwh\' | grep -v airflow)
           sleep 30
-          for pvc in $pvcs; do kubectl delete $pvc; done
+          for pvc in $pvcs; do kubectl delete $pvc done
           #sleep 15
           #echo $pvcs | cut -d "/" -f2
           #for pvc in $pvcs; do kubectl apply -f -\\nkind: PersistentVolumeClaim\\napiVersion: v1\\nmetadata:\\n\\ \\ name: $pvc\\nspec:\\n\\ \\ accessModes:\\n \\ \\ - ReadWriteOnce\\nresources:\\n \\ \\ requests:\\n \\ \\ storage: 10Gi\\ndone
