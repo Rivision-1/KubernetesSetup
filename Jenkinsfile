@@ -16,7 +16,9 @@ pipeline {
           for pvc in $pvcs; do kubectl delete $pvc; done
           sleep 10
           for sts in $stss; do kubectl scale $sts --replicas=1; done
-          sleep 200
+          sleep 5
+          dbs=$(kubectl get pods -o=name | \'*-db|dwh\' | grep -v airflow)
+          for db in $dbs; do kubectl wait --for=condition=ready $db; done
           for deploy in $deploys; do kubectl scale $deploy --replicas=1; done'''
         }
       }
