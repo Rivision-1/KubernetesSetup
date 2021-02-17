@@ -13,11 +13,11 @@ pipeline {
           for sts in $stss; do kubectl scale $sts --replicas=0; done
           pvcs=$(kubectl get pvc -o=name | egrep \'*-db|dwh\' | grep -v airflow)
           sleep 30
-          for pvc in $pvcs; do kubectl delete $pvc done
+          for pvc in $pvcs; do kubectl delete $pvc; done
           sleep 10
-          for sts in $stss; do kubectl scale $sts --replicas=1 done
+          for sts in $stss; do kubectl scale $sts --replicas=1; done
           sleep 200
-          for deploy in $deploys; do kubectl scale $deploy --replicas=1 done'''
+          for deploy in $deploys; do kubectl scale $deploy --replicas=1; done'''
         }
       }
     }
