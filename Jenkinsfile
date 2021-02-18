@@ -4,7 +4,7 @@ pipeline {
     stage('Cleanup') {
       steps {
         script {
-          timeout(time: 5, unit: 'SECONDS') {
+          timeout(time: 5, unit: 'SECONDS') ansiColor('xterm'){
           input("You are cleaning up ${EnvironmentNamespace} environment  Are you sure you want to proceed?")
           }
           withKubeConfig([credentialsId: KubeconfigId, namespace: EnvironmentNamespace]) {
